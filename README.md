@@ -1,6 +1,6 @@
-# ShopFlow — Distributed E-commerce Backend
+# CommerceCore — Distributed E-commerce Backend
 
-ShopFlow is a backend platform for e-commerce built on a microservices architecture using Spring Boot 3 and Spring Cloud. Each service owns its database, communicates asynchronously over Kafka, and is secured behind a JWT-authenticated API Gateway. The whole stack runs locally via Docker Compose in a single command.
+CommerceCore is a backend platform for e-commerce built on a microservices architecture using Spring Boot 3 and Spring Cloud. Each service owns its database, communicates asynchronously over Kafka, and is secured behind a JWT-authenticated API Gateway. The whole stack runs locally via Docker Compose in a single command.
 
 ---
 
