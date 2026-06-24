@@ -36,8 +36,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
-
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 @Service
@@ -54,12 +52,17 @@ public class ProductServiceImpl implements ProductService {
     private String cloudName;
 
     public String getFileExtension(MultipartFile file) {
-        String originalFilename = file.getOriginalFilename();
-        if (originalFilename != null && originalFilename.contains(".")) {
-            return originalFilename.substring(originalFilename.lastIndexOf(".") + 1);
-        } else {
-            return "";
+        return Optional.ofNullable(file.getOriginalFilename())
+                .filter(name -> name.contains("."))
+                .map(name -> name.substring(name.lastIndexOf(".") + 1))
+                .orElse("");
+    }
+
+    private ProductResponseDto toResponseDto(Product product) {
+        if (productDAO.findByProductId(product.getId()) == null) {
+            productDAO.save(product);
         }
+        return modelMapper.map(product, ProductResponseDto.class);
     }
     @Override
     @Transactional
@@ -115,14 +118,7 @@ public class ProductServiceImpl implements ProductService {
 
         List<ProductResponseDto> productDtos = productPage.getContent()
                 .stream()
-                .map(product -> {
-                    ProductCacheDto cachedProduct = productDAO.findByProductId(product.getId());
-
-                    if(cachedProduct == null){
-                       productDAO.save(product);
-                    }
-                    return modelMapper.map(product, ProductResponseDto.class);
-                })
+                .map(this::toResponseDto)
                 .collect(Collectors.toList());
 
         return new PageImpl<>(productDtos, PageRequest.of(page, size), productPage.getTotalElements());
