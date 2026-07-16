@@ -8,10 +8,10 @@
 		<version>3.3.3</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>net.javaguides</groupId>
-	<artifactId>service-registry</artifactId>
+	<groupId>com.commercecore</groupId>
+	<artifactId>discovery-registry</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>service-registry</name>
+	<name>discovery-registry</name>
 	<description>Demo project for Spring Boot service-registry</description>
 	<url/>
 	<licenses>
