@@ -8,10 +8,10 @@
 		<version>3.3.3</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>net.javaguides</groupId>
-	<artifactId>product-service</artifactId>
+	<groupId>com.commercecore</groupId>
+	<artifactId>catalog-inventory-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>product-service</name>
+	<name>catalog-inventory-service</name>
 	<description>Demo project for Spring Boot product-service</description>
 	<url/>
 	<licenses>
@@ -34,7 +34,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>io.github.haphong463</groupId>
-			<artifactId>common-lib</artifactId>
+			<artifactId>shared-components</artifactId>
 			<version>1.0.7</version>
 		</dependency>
 		<dependency>
