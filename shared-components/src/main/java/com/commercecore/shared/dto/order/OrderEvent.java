@@ -1,4 +1,4 @@
-package net.javaguides.common_lib.dto.order;
+package com.commercecore.shared.dto.order;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,4 +1,4 @@
-package net.javaguides.common_lib.entity;
+package com.commercecore.shared.entity;
 
 import jakarta.persistence.*;
 import lombok.*;

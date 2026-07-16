@@ -1,4 +1,4 @@
-package net.javaguides.common_lib.dto.product;
+package com.commercecore.shared.dto.product;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

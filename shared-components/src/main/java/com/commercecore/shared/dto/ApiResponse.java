@@ -1,4 +1,4 @@
-package net.javaguides.common_lib.dto;
+package com.commercecore.shared.dto;
 
 import lombok.*;
 
