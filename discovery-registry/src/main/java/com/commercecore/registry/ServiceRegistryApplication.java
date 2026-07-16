@@ -1,4 +1,4 @@
-package net.javaguides.service_registry;
+package com.commercecore.registry;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

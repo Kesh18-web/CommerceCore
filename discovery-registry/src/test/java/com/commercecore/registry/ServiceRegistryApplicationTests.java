@@ -1,4 +1,4 @@
-package net.javaguides.service_registry;
+package com.commercecore.registry;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
