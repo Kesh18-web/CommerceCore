@@ -8,10 +8,10 @@
 		<version>3.3.3</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>net.javaguides</groupId>
-	<artifactId>identity-service</artifactId>
+	<groupId>com.commercecore</groupId>
+	<artifactId>user-auth-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>identity-service</name>
+	<name>user-auth-service</name>
 	<description>Demo project for Spring Boot identity-service</description>
 	<url/>
 	<licenses>
@@ -33,7 +33,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>io.github.haphong463</groupId>
-			<artifactId>common-lib</artifactId>
+			<artifactId>shared-components</artifactId>
 			<version>1.0.7</version>
 		</dependency>
         <dependency>
