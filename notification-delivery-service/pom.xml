@@ -8,10 +8,10 @@
 		<version>3.3.3</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>net.javaguides</groupId>
-	<artifactId>email-service</artifactId>
+	<groupId>com.commercecore</groupId>
+	<artifactId>notification-delivery-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>email-service</name>
+	<name>notification-delivery-service</name>
 	<description>Demo project for Spring Boot email-service</description>
 	<url/>
 	<licenses>
@@ -49,7 +49,7 @@
 		</dependency>
 		<dependency>
 			<groupId>io.github.haphong463</groupId>
-			<artifactId>common-lib</artifactId>
+			<artifactId>shared-components</artifactId>
 			<version>1.0.7</version>
 		</dependency>
 		<dependency>
