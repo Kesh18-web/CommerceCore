@@ -154,10 +154,10 @@ Each service has its own MySQL instance accessible from the host:
 
 | Database | Host port |
 |---|---|
-| `order_db` | 3307 |
+| `sales_checkout_db` | 3307 |
 | `identity_db` | 3308 |
-| `payment_db` | 3309 |
-| `product_db` | 3310 |
+| `billing_transaction_db` | 3309 |
+| `catalog_inventory_db` | 3310 |
 
 Connect with: `mysql -h 127.0.0.1 -P <port> -u root -proot`
 

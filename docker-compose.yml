@@ -4,7 +4,7 @@ services:
   # Zookeeper (Required by Kafka)
   zookeeper:
     image: confluentinc/cp-zookeeper:7.3.1
-    container_name: zookeeper
+    container_name: cc-zookeeper
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
@@ -16,7 +16,7 @@ services:
   # Kafka
   kafka:
     image: confluentinc/cp-kafka:7.3.1
-    container_name: kafka
+    container_name: cc-kafka
     depends_on:
       - zookeeper
     ports:
@@ -36,7 +36,7 @@ services:
   # Redis
   redis:
     image: redis:7.0
-    container_name: redis
+    container_name: cc-redis
     ports:
       - "6379:6379"
     volumes:
@@ -45,80 +45,80 @@ services:
       - shop-network
 
   # MySQL for Order Service
-  mysql-order-service:
+  mysql-sales-checkout-service:
     image: mysql:8.0
-    container_name: mysql-order-service
+    container_name: mysql-sales-checkout-service
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: order_db
+      MYSQL_DATABASE: sales_checkout_db
     ports:
       - "3307:3306" # Host port 3307 mapped to container port 3306
     volumes:
-      - mysql-order-service-data:/var/lib/mysql
+      - mysql-sales-checkout-service-data:/var/lib/mysql
     networks:
       - shop-network
 
   # MySQL for Identity Service
-  mysql-identity-service:
+  mysql-user-auth-service:
     image: mysql:8.0
-    container_name: mysql-identity-service
+    container_name: mysql-user-auth-service
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: user_db
+      MYSQL_DATABASE: user_auth_db
     ports:
       - "3308:3306" # Host port 3308 mapped to container port 3306
     volumes:
-      - mysql-identity-service-data:/var/lib/mysql
+      - mysql-user-auth-service-data:/var/lib/mysql
     networks:
       - shop-network
 
-  mysql-payment-service:
+  mysql-billing-transaction-service:
     image: mysql:8.0
-    container_name: mysql-payment-service
+    container_name: mysql-billing-transaction-service
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: payment_db
+      MYSQL_DATABASE: billing_transaction_db
     ports:
       - "3309:3306" # Host port 3308 mapped to container port 3306
     volumes:
-      - mysql-payment-service-data:/var/lib/mysql
+      - mysql-billing-transaction-service-data:/var/lib/mysql
     networks:
       - shop-network
 
-  mysql-product-service:
+  mysql-catalog-inventory-service:
     image: mysql:8.0
-    container_name: mysql-product-service
+    container_name: mysql-catalog-inventory-service
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: product_db
+      MYSQL_DATABASE: catalog_inventory_db
     ports:
       - "3310:3306" # Host port 3308 mapped to container port 3306
     volumes:
-      - mysql-product-service-data:/var/lib/mysql
+      - mysql-catalog-inventory-service-data:/var/lib/mysql
     networks:
       - shop-network
 
-  mysql-stock-service:
+  mysql-inventory-service:
     image: mysql:8.0
-    container_name: mysql-stock-service
+    container_name: mysql-inventory-service
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: stock_db
+      MYSQL_DATABASE: inventory_db
     ports:
       - "3311:3306" # Host port 3308 mapped to container port 3306
     volumes:
-      - mysql-stock-service-data:/var/lib/mysql
+      - mysql-inventory-service-data:/var/lib/mysql
     networks:
       - shop-network
   # Eureka Server
   eureka-server:
-    image: springboot-kafka-microservices/eureka-server:latest
-    container_name: eureka-server
+    image: commercecore/discovery-registry:latest
+    container_name: discovery-registry
     depends_on:
       - kafka
     ports:
@@ -130,8 +130,8 @@ services:
 
   # API Gateway
   api-gateway:
-    image: springboot-kafka-microservices/api-gateway:latest
-    container_name: api-gateway
+    image: commercecore/ingress-gateway:latest
+    container_name: ingress-gateway
     depends_on:
       - kafka
       - eureka-server
@@ -146,16 +146,16 @@ services:
 
   # Order Service
   order-service:
-    image: springboot-kafka-microservices/order-service:latest
-    container_name: order-service
+    image: commercecore/sales-checkout-service:latest
+    container_name: sales-checkout-service
     depends_on:
       - kafka
-      - mysql-order-service
+      - mysql-sales-checkout-service
       - eureka-server
     ports:
       - "8080:8080"
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-order-service:3306/order_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-sales-checkout-service:3306/sales_checkout_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: root
       SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
@@ -165,8 +165,8 @@ services:
       - shop-network
 
   email-service:
-    image: springboot-kafka-microservices/email-service:latest
-    container_name: email-service
+    image: commercecore/notification-delivery-service:latest
+    container_name: notification-delivery-service
     depends_on:
       - kafka
       - eureka-server
@@ -180,16 +180,16 @@ services:
       - shop-network
 
   payment-service:
-    image: springboot-kafka-microservices/payment-service:latest
-    container_name: payment-service
+    image: commercecore/billing-transaction-service:latest
+    container_name: billing-transaction-service
     depends_on:
       - kafka
-      - mysql-payment-service
+      - mysql-billing-transaction-service
       - eureka-server
     ports:
       - "8085:8085"
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-payment-service:3306/payment_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-billing-transaction-service:3306/billing_transaction_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: root
       SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
@@ -199,16 +199,16 @@ services:
       - shop-network
 
   product-service:
-    image: springboot-kafka-microservices/product-service:latest
-    container_name: product-service
+    image: commercecore/catalog-inventory-service:latest
+    container_name: catalog-inventory-service
     depends_on:
       - kafka
-      - mysql-product-service
+      - mysql-catalog-inventory-service
       - eureka-server
     ports:
       - "8084:8084"
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-product-service:3306/product_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-catalog-inventory-service:3306/catalog_inventory_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: root
       SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
@@ -221,16 +221,16 @@ services:
       - shop-network
 
   stock-service:
-    image: springboot-kafka-microservices/stock-service:latest
-    container_name: stock-service
+    image: commercecore/inventory-service:latest
+    container_name: inventory-service
     depends_on:
       - kafka
-      - mysql-stock-service
+      - mysql-inventory-service
       - eureka-server
     ports:
       - "8081:8081"
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-stock-service:3306/stock_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-inventory-service:3306/inventory_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: root
       SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
@@ -240,16 +240,16 @@ services:
       - shop-network
   # Identity Service
   identity-service:
-    image: springboot-kafka-microservices/identity-service:latest
-    container_name: identity-service
+    image: commercecore/user-auth-service:latest
+    container_name: user-auth-service
     depends_on:
       - kafka
-      - mysql-identity-service
+      - mysql-user-auth-service
       - eureka-server
     ports:
       - "9898:9898"
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-identity-service:3306/user_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-user-auth-service:3306/user_auth_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: root
       SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
@@ -259,11 +259,11 @@ services:
       - shop-network
 
 volumes:
-  mysql-order-service-data:
-  mysql-identity-service-data:
-  mysql-product-service-data:
-  mysql-payment-service-data:
-  mysql-stock-service-data:
+  mysql-sales-checkout-service-data:
+  mysql-user-auth-service-data:
+  mysql-catalog-inventory-service-data:
+  mysql-billing-transaction-service-data:
+  mysql-inventory-service-data:
   redis-data:
 networks:
   shop-network:
