@@ -3,9 +3,9 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>io.github.haphong463</groupId>
-	<artifactId>common-lib</artifactId>
+	<artifactId>shared-components</artifactId>
 	<version>1.0.7</version>
-	<name>common-lib</name>
+	<name>shared-components</name>
 	<description>Demo project for Spring Boot common-lib</description>
 	<url/>
 	<licenses>
