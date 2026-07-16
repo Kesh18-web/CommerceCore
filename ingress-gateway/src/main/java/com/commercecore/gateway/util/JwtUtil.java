@@ -1,4 +1,4 @@
-package net.javaguides.api_gateway.util;
+package com.commercecore.gateway.util;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

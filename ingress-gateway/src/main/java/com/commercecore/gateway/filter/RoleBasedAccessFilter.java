@@ -1,8 +1,8 @@
-package net.javaguides.api_gateway.filter;
+package com.commercecore.gateway.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import net.javaguides.api_gateway.util.JwtUtil;
-import net.javaguides.common_lib.dto.ApiResponse;
+import com.commercecore.gateway.util.JwtUtil;
+import com.commercecore.shared.dto.ApiResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

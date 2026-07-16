@@ -1,4 +1,4 @@
-package net.javaguides.api_gateway.filter;
+package com.commercecore.gateway.filter;
 
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.stereotype.Component;

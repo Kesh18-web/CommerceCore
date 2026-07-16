@@ -1,4 +1,4 @@
-package net.javaguides.api_gateway;
+package com.commercecore.gateway;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

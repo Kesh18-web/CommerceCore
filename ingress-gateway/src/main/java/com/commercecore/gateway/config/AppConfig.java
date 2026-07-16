@@ -1,4 +1,4 @@
-package net.javaguides.api_gateway.config;
+package com.commercecore.gateway.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.context.annotation.Bean;
