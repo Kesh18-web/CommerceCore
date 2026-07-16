@@ -1,11 +1,11 @@
-package net.javaguides.email_service.service;
+package com.commercecore.notification.service;
 
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
-import net.javaguides.common_lib.dto.ApiResponse;
-import net.javaguides.common_lib.dto.order.OrderEvent;
-import net.javaguides.common_lib.dto.order.OrderItemDTO;
-import net.javaguides.email_service.dto.ProductStockResponse;
+import com.commercecore.shared.dto.ApiResponse;
+import com.commercecore.shared.dto.order.OrderEvent;
+import com.commercecore.shared.dto.order.OrderItemDTO;
+import com.commercecore.notification.dto.ProductStockResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -64,9 +64,13 @@ public class EmailService {
                     ApiResponse<ProductStockResponse> productResponse = productClient.getProductById(item.getProductId()).getBody();
 
 
-                    if(productResponse != null && productResponse.getStatusCode() != 200){
+                    if(productResponse == null || productResponse.getData() == null || productResponse.getData().getProduct() == null){
+                        logger.warn("Product with ID {} not found or error occurred.", item.getProductId());
+                        continue;
+                    }
+                    if(productResponse.getStatusCode() != 200){
                         logger.warn("Product with ID {} not found.", item.getProductId());
-                        return;
+                        continue;
                     }
 
 

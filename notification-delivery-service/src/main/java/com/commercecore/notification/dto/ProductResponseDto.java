@@ -1,4 +1,4 @@
-package net.javaguides.email_service.dto;
+package com.commercecore.notification.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

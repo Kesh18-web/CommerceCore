@@ -1,4 +1,4 @@
-package net.javaguides.email_service.config;
+package com.commercecore.notification.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

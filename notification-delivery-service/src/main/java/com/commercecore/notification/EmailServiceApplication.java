@@ -1,4 +1,4 @@
-package net.javaguides.email_service;
+package com.commercecore.notification;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

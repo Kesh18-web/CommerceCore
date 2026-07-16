@@ -1,8 +1,8 @@
-package net.javaguides.email_service.kafka;
+package com.commercecore.notification.kafka;
 
 
-import net.javaguides.common_lib.dto.order.OrderEvent;
-import net.javaguides.email_service.service.EmailService;
+import com.commercecore.shared.dto.order.OrderEvent;
+import com.commercecore.notification.service.EmailService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,7 @@ public class OrderConsumer {
             groupId = "${spring.kafka.consumer.group-id}")
     public void consume(OrderEvent orderEvent){
         try {
-            LOGGER.info(String.format("OrderDTO event received in payment service -> %s", orderEvent.toString()));
+            LOGGER.info(String.format("OrderDTO event received in email service -> %s", orderEvent.toString()));
 
             emailService.sendOrderConfirmationEmail(orderEvent);
 
