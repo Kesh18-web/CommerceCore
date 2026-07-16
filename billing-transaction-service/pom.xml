@@ -8,10 +8,10 @@
 		<version>3.3.3</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>net.javaguides</groupId>
-	<artifactId>payment-service</artifactId>
+	<groupId>com.commercecore</groupId>
+	<artifactId>billing-transaction-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>payment-service</name>
+	<name>billing-transaction-service</name>
 	<description>Demo Spring Boot for payment-service</description>
 	<url/>
 	<licenses>
@@ -42,7 +42,7 @@
 		</dependency>
 		<dependency>
 			<groupId>io.github.haphong463</groupId>
-			<artifactId>common-lib</artifactId>
+			<artifactId>shared-components</artifactId>
 			<version>1.0.7</version>
 		</dependency>
 		<dependency>
