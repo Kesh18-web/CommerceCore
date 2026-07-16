@@ -8,10 +8,10 @@
 		<version>3.3.3</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>net.javaguides</groupId>
-	<artifactId>order-service</artifactId>
+	<groupId>com.commercecore</groupId>
+	<artifactId>sales-checkout-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>order-service</name>
+	<name>sales-checkout-service</name>
 	<description>Demo project for Spring Boot order-service</description>
 	<url/>
 	<licenses>
@@ -129,7 +129,7 @@
 		</dependency>
 		<dependency>
 			<groupId>io.github.haphong463</groupId>
-			<artifactId>common-lib</artifactId>
+			<artifactId>shared-components</artifactId>
 			<version>1.0.7</version>
 		</dependency>
 		<dependency>
